@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.status-step {
+    text-align: center;
+    flex: 1;
+}
+
+.status-step .circle {
+    width: 40px;
+    height: 40px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.status-step.active .circle {
+    background: #28a745;
+}
+
+.status-step .label {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.progress-bar {
+    position: relative;
+    height: 4px;
+    background: #d9d9d9;
+    margin: 0 20px;
+    flex: 1;
+}
+
+.progress-bar .progress {
+    position: absolute;
+    height: 100%;
+    background: #28a745;
+    width: 50%; /* Update this value dynamically */
+}
+
+.order-details {
+    margin-top: 30px;
+}
+
+.order-details h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-details p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #999;
+}

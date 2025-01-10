@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+  
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+           
+        }
+
+        .navbar input[type="checkbox"],
+        .navbar .hamburger-lines {
+            display: none;
+        }
+
+        .navbar {
+            box-shadow: 0px 5px 10px 0px #aaa;
+            width: 100%;
+            background: black;
+            color: white;
+            opacity: 0.85;
+            height: 60px;
+            z-index: 3;
+            padding: 10px;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            height: 64px;
+            align-items: center;
+        }
+
+        .menu-items {
+            order: 2;
+            display: flex;
+            position: absolute;
+            right: 10px;
+            padding: 10px;
+        }
+
+        .menu-items li {
+            list-style: none;
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .menu-items a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .menu-items a:hover {
+            color: #117964;
+        }
+
+        .logo {
+            order: 1;
+            font-size: 2.3rem;
+            position: absolute;
+            left: 10px;
+            filter: drop-shadow(10px 10px 10px 0.8rem rgb(214, 5, 5));
+        }
+
+        .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 200px;  /* Max width for the card */
+    margin: 0 auto;  /* Centering the card */
+}
+
+.header img {
+    width: 100%;
+    max-width: 400px; /* Ensure image is not too wide */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.header .name, 
+.header .rating, 
+.header .offer {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.header .price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.header .price-container .original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.header .price-container #discountedPrice {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.header .order-now {
+    padding: 12px 30px;
+    background-color: #27ae60;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header .order-now:hover {
+    background-color: #2ecc71;
+}
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .left-section, .right-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        .left-section h3 {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .left-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .right-section h3 {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .products {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .product img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-details h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .product-details .price {
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .product-details .original-price {
+            text-decoration: line-through;
+            margin-right: 10px;
+            color: #999;
+        }
+
+        .product-details .discount {
+            font-size: 14px;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .view-more {
+            display: block;
+            text-align: center;
+            margin-left: 33%;
+        }
+
+        button {
+            text-decoration: none;
+            background-color: #007bff;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        /* General Footer Styling */
+footer {
+  background-color: #323232;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: bold;
+  margin-right: 10px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom img {
+  margin-top: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.footer-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.footer-section {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0c14b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  font-size: 10px;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+  color: #b1342d;
+  text-decoration: underline;
+}
+
+/* Legal Section Styling */
+.legal ul {
+  padding-right: 0;
+}
+
+.legal ul li {
+  margin: 8px 0;
+}
+
+/* Social Icons Styling */
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  margin: 0 10px 0 10px;
+  display: inline-block;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #1abc9c;
+}
+
+/* Footer Bottom Section */
+.footer-section p {
+  margin: 10px 0;
+  color: #bdc3c7;
+}
+
+.footer-section a.a1 {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-section a.a1:hover {
+  text-decoration: underline;
+}
+.footer-section1 {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 16px;
+}
+
+.footer-section1 p {
+  margin: 5px 0;
+  color: #fff;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1 {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1:hover {
+  color: blue;
+  text-decoration: underline;
+
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+  }
+  .footer-bottom{
+    font-size:2px;
+    font-weight: 0;
+}
+}
+        /* Mobile Responsive Design */
+        @media screen and (max-width: 768px) {
+            .left-section, .right-section {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+
+            .header {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            
+
+            .social-icons {
+                text-align: center;
+            }
+            .view-more{
+              margin-top: 10px;
+              margin-left: 50px;
+            }
+        }
+ 
+/* General Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Menu Styles */
+.menu-items {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-items li {
+    margin: 0;
+    width: auto;
+}
+
+.menu-items a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+}
+
+/* Hide Checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    right: 20px; /* Aligns the menu icon to the right */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .menu-items {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        font-size: 1rem;
+        width: 100%;
+        background-color: black;
+    }
+
+    .menu-items li {
+        width: 100%;
+    }
+
+    .menu-items a {
+        /* padding: 15px 0; */
+        width: 100%;
+
+    }
+
+    .menu-toggle:checked ~ .menu-items {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+            <label for="menu-toggle" class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu-items">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="veg.html">Veg Dishes</a></li>
+                <li><a href="nonveg.html">Non-Veg Dishes</a></li>
+                <li><a href="snacks.html">Snacks</a></li>
+                <li><a href="mycart.html">Your Cart</a></li>
+            </ul>
+            <h1 class="logo">Food-Bowl</h1>
+        </div>
+    </nav>
+
+    <div class="header">
+        <img id="restaurantImage" alt="Restaurant Image">
+        <div class="name" id="restaurantName"></div>
+        <div class="rating" id="restaurantRating"></div>
+        <div class="offer" id="restaurantOffer"></div>
+        <div class="price-container">
+            <span class="original-price" id="originalPrice">₹249</span>
+            <span id="discountedPrice">₹199</span>
+        </div>
+        <button class="order-now" onclick="window.location.href='veg.html'">Order Now</button>
+    </div>
+
+    <div class="container">
+        <div class="left-section">
+            <h3>About The Restaurant</h3>
+            <p>The Paratha House has been serving the community for over <strong>15 years</strong>, offering a variety of delicious dishes with a focus on authentic North Indian cuisine.</p>
+            <p>We pride ourselves on using fresh, high-quality ingredients and traditional recipes to provide an unforgettable dining experience. Our specialties include a wide range of stuffed parathas, creamy curries, and freshly baked bread that our customers love.</p>
+            <p>Over the years, we have built a reputation for exceptional taste, quality, and hospitality, making us a preferred choice for families, friends, and food lovers alike.</p>
+            <p><strong>Address:</strong> Main Market, Chhindwara Locality</p>
+            <p><strong>Email:</strong> contact@restaurant.com</p>
+            <p><strong>Contact Number:</strong> +91 9876543210</p>
+            <p><strong>Hours of Operation:</strong> 10:00 AM - 11:00 PM</p>
+            <p><strong>Years of Service:</strong> 15+ Years</p>
+        </div>
+
+        <div class="right-section">
+            <h3>Products</h3>
+            <div class="products">
+                <div class="product">
+                    <img src="aloo paratha.jpg" alt="Aloo Paratha">
+                    <div class="product-details">
+                        <h4>Aloo Paratha</h4>
+                        <p><span class="original-price">₹120</span> <span class="price">₹99</span></p>
+                        <p class="discount">18% OFF</p>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="paneer butter masala.jpg" alt="Paneer Butter Masala">
+                    <div class="product-details">
+                        <h4>Paneer Butter Masala</h4>
+                        <p><span class="original-price">₹250</span> <span class="price">₹199</span></p>
+                        <p class="discount">20% OFF</p>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="butter naan.jpeg" alt="Butter Naan">
+                    <div class="product-details">
+                        <h4>Butter Naan</h4>
+                        <p><span class="original-price">₹50</span> <span class="price">₹40</span></p>
+                        <p class="discount">20% OFF</p>
+                    </div>
+                </div>
+            </div>
+            <button class="view-more" onclick="window.location.href='veg.html'">View More Products</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('restaurantName').innerText = localStorage.getItem('restaurantName');
+        document.getElementById('restaurantRating').innerText = localStorage.getItem('restaurantRating');
+        document.getElementById('restaurantImage').src = localStorage.getItem('restaurantImage');
+        document.getElementById('restaurantOffer').innerText = localStorage.getItem('restaurantOffer');
+    </script>
+
+    <footer>
+        <div class="footer-bottom">
+            <a href="#">For better experience,download the Food-Bowl app now</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+        </div>
+
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><a href="#">Help & Support</a></li>
+                    <li><a href="#">Partner with us</a></li>
+                    <li><a href="#">Ride with us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <div class="legal">
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Available in</h4>
+                <ul>
+                    <li><a href="#">Pune</a></li>
+                    <li><a href="#">Mumbai</a></li>
+                    <li><a href="#">Hyderabad</a></li>
+                    <li><a href="#">Delhi</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Life at Food-Bowl</h4>
+                <ul>
+                    <li><a href="#">Explore With Food-Bowl</a></li>
+                    <li><a href="#">Food-Bowl News</a></li>
+                    <li><a href="#">Snackables</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section1">
+            <p>Restaurant &copy; All rights reserved</p>
+            <p>Contact us : foodbowl111@gmail.com</p>
+            <p>Phone no.: 9975775550 / 9172152840</p>
+            <p>Powered By @ <a href="https://www.cybromatechtechnology.in/" class="a1">Cybromatech Technology Pvt. Ltd. 2024</a></p>
+        </div>
+    </footer>
+</body>
+</html>

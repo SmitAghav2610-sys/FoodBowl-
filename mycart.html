@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Screen</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .navbar input[type="checkbox"],
+.navbar .hamburger-lines {
+  display: none;
+}
+
+.navbar {
+  box-shadow: 0px 5px 10px 0px #aaa;
+  width: 100%;
+  background: black;
+  color: white;
+  opacity: 0.85;
+  height: 80px;
+  z-index: 3;
+  padding: 10px;
+
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  /* height: 64px; */
+  align-items: center;
+  
+}
+
+.menu-items {
+  order: 2;
+  display: flex;
+  /* margin-left: 100px; */
+  position: absolute;
+  right: 10px;
+  padding: 10px;  
+}
+
+.menu-items li {
+  list-style: none;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.menu-items a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+  right: 0;
+}
+.cart{
+color: blue;
+}
+
+.menu-items a:hover {
+  color: #117964;
+  transition: color 0.3s ease-in-out;
+}
+.logo {
+  order: 1;
+  font-size: 2.3rem;
+  margin-top: -1rem;
+  position: absolute;
+  margin-left: 10px;
+  left:0;
+  filter: drop-shadow(10px 10px 10px 0.8rem rgb(214, 5, 5));
+}
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-proceed {
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .btn-proceed:hover {
+            background-color: #218838;
+        }
+
+        .change-address {
+            color: orange;
+            cursor: pointer;
+        }
+
+        .total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .apply-coupon input {
+            width: calc(100% - 90px);
+            display: inline-block;
+        }
+
+        .apply-coupon button {
+            display: inline-block;
+        }
+
+        .payment-options {
+            display: none;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .payment-option img {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+        }
+
+        .payment-option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .quantity-control span {
+            font-size: 16px;
+        }
+
+        /* Sidebar for changing address */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1050;
+            transition: right 0.3s ease-in-out;
+            padding: 20px;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar h5 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar .form-group {
+            margin-bottom: 15px;
+        }
+
+        .sidebar .form-group i {
+            margin-right: 10px;
+        }
+
+        .sidebar .btn-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .btn{
+            margin-top: 100px;
+            width: 100px;
+        }
+        /* General Footer Styling */
+footer {
+  background-color: #323232;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+ margin-top: 100px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: bold;
+  margin-right: 10px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom img {
+  margin-top: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.footer-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.footer-section {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0c14b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  font-size: 10px;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+  color: #b1342d;
+  text-decoration: underline;
+}
+
+/* Legal Section Styling */
+.legal ul {
+  padding-right: 0;
+}
+
+.legal ul li {
+  margin: 8px 0;
+}
+
+/* Social Icons Styling */
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  margin: 0 10px 0 10px;
+  display: inline-block;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #1abc9c;
+}
+
+/* Footer Bottom Section */
+.footer-section p {
+  margin: 10px 0;
+  color: #bdc3c7;
+}
+
+.footer-section a.a1 {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-section a.a1:hover {
+  text-decoration: underline;
+}
+.footer-section1 {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 16px;
+}
+
+.footer-section1 p {
+  margin: 5px 0;
+  color: #fff;
+}
+
+.footer-section1 a.a1 {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer-section1 a.a1:hover {
+  color: blue;
+  text-decoration: underline;
+
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+/* media  */
+@media screen and (max-width: 768px) {
+    *{
+      overflow-x: hidden;
+      align-content: center;
+    }
+ 
+.footer-bottom{
+    font-size:2px;
+    font-weight: 0;
+}
+footer{
+    text-align: center;
+ }
+
+}
+/* General Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Menu Styles */
+.menu-items {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.menu-items li {
+    margin: 0;
+    width: auto;
+}
+
+.menu-items a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+}
+
+/* Hide Checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    right: 20px; /* Aligns the menu icon to the right */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .menu-items {
+    display: none; /* Hide the menu by default */
+    flex-direction: column; /* Stack the links vertically */
+    position: fixed; /* Fix position to the viewport */
+    top: 50px; /* Adjust to appear just below the navbar */
+    left: 0;
+    width: 100%; /* Full width */
+    background-color: black; /* Same as navbar background */
+    z-index: 9999; /* High z-index to appear above other content */
+    padding: 10px 0; /* Add padding for better spacing */
+  }
+
+  .menu-items li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-items a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem; /* Increase font size for better visibility */
+  }
+
+  .menu-toggle:checked ~ .menu-items {
+    display: flex; /* Show the menu when the toggle is checked */
+  }
+
+  .hamburger-menu {
+    display: flex; /* Display hamburger menu */
+    z-index: 10000; /* Keep above the menu */
+  }
+}
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+            <label for="menu-toggle" class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu-items">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="veg.html">Veg Dishes</a></li>
+                <li><a href="nonveg.html">Non-Veg Dishes</a></li>
+                <li><a href="snacks.html">Snacks</a></li>
+                <li><a href="mycart.html">Your Cart</a></li>
+            </ul>
+            <h1 class="logo">Food-Bowl</h1>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="row">
+            <!-- Left Section -->
+            <div class="col-md-8">
+                <div class="card p-4 mb-3">
+                    <h5 class="mb-3">Delivery Address</h5>
+                    <div class="card p-3" id="address-box">
+                        <p id="address">102, JP8H+95, Hinjawadi, Pimpri-Chinchwad, Maharashtra 411033, India</p>
+                        <p>18 MINS</p>
+                        <p class="change-address">CHANGE</p>
+                    </div>
+                </div>
+                <div class="card p-4 text-center">
+                    <button class="btn btn-proceed w-100">PROCEED TO PAY</button>
+                </div>
+                <div class="payment-options" id="payment-options">
+                    <h5 class="mt-4">Select Payment Method</h5>
+                    <div class="payment-option">
+                        <img src="upi_group.avif" alt="UPI">
+                        <span>Pay via UPI</span>
+                    </div>
+                    <div class="payment-option">
+                        <img src="Wallet.avif" alt="Credit Card">
+                        <span>Credit or Debit Card</span>
+                    </div>
+                    <div class="payment-option">
+                        <img src="Net_banking.avif" alt="Net Banking">
+                        <span>Net Banking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card p-4">
+                  <div class="d-flex align-items-center mb-3">
+                      <img src="" alt="Product Image" class="rounded me-3" style="width: 50px; height: 50px;">
+                      <div>
+                          <h6 class="mb-0">Product Name</h6>
+                          <small>Restaurant Name</small>
+                      </div>
+                  </div>
+          
+                  <div class="apply-coupon mb-3">
+                      <input type="text" class="form-control d-inline-block" placeholder="Apply Coupon">
+                      <button class="btn btn-primary d-inline-block">Apply</button>
+                  </div>
+          
+                  <div class="bill-details">
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                          <span>Item Total</span>
+                          <div class="quantity-control">
+                              <button id="decrease">-</button>
+                              <span id="quantity">1</span>
+                              <button id="increase">+</button>
+                          </div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>Price per Item</span>
+                          <span id="price">₹0</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>Delivery Fee (2.8 kms)</span>
+                          <span id="delivery-fee">₹38</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>Extra Discount</span>
+                          <span id="discount">₹-15</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>Delivery Tip</span>
+                          <a href="#" class="text-decoration-none">Add Tip</a>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>Platform Fee</span>
+                          <span id="platform-fee">₹10</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                          <span>GST and Restaurant Charges</span>
+                          <span id="gst">₹10.80</span>
+                      </div>
+                      <div class="d-flex justify-content-between total mt-3">
+                          <span>Total to Pay</span>
+                          <span id="total">₹0</span>
+                      </div>
+                  </div>
+              </div>
+              <a href="trackorder.html" class="btn btn-primary">Submit</a>
+          </div>
+          
+    <!-- Sidebar for Address Change -->
+    <div class="sidebar" id="sidebar">
+        <button class="btn-close" id="close-sidebar">&times;</button>
+        <h5>Change Address</h5>
+        <div class="form-group">
+            <label for="map">Select Location on Map</label>
+            <input type="text" id="map" class="form-control" placeholder="Map integration placeholder">
+        </div>
+        <div class="form-group">
+            <label for="flat-no"><i class="bi bi-house"></i> Door/Flat No.</label>
+            <input type="text" id="flat-no" class="form-control" placeholder="Enter Flat/Door No.">
+        </div>
+        <div class="form-group">
+            <label for="landmark"><i class="bi bi-geo-alt"></i> Landmark</label>
+            <input type="text" id="landmark" class="form-control" placeholder="Enter Landmark">
+        </div>
+        <button class="btn btn-primary w-100" id="save-address">Save Address</button>
+    </div>
+    
+    <footer>
+        <div class="footer-bottom">
+            <!-- <p>For better experience,download the food-bowl app now</p> -->
+            <a href="#">For better experience,download the Food-Bowl app now</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+          </div>
+         
+          <div class="footer-container">
+          <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+              <li><a href="#">Help & Support</a></li>
+              <li><a href="#">Partner with us</a></li>
+              <li><a href="#">Ride with us</a></li>
+              
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <div class="legal">
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                  </ul>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h4>Available in</h4>
+            <ul>
+              <li><a href="#">Pune</a></li>
+              <li><a href="#">Mumbai</a></li>
+              <li><a href="#">Hydrabad</a></li>
+              <li><a href="#">Delhi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Life at food-bowl</h4>
+            <ul>
+              <li><a href="#">Explore With Food-Bowl</a></li>
+              <li><a href="#">Food-Bowl News</a></li>
+              <li><a href="#">Snackables</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-section1">
+            <p>Restraunt &copy; all rights reserved</p>
+        <p>Contact us : foodbowl111@gmail.com</p>
+        <p>Phone no.:9975775550/9172152840</p>
+        <p >Powered By@ <a href="https://www.cybromatechtechnology.in/" class="a1">Cybromatech Technology Pvt.Ltd.2024</a></p>
+        </div>
+    
+      </footer>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const changeAddressButton = document.querySelector('.change-address');
+        const closeSidebarButton = document.getElementById('close-sidebar');
+        const saveAddressButton = document.getElementById('save-address');
+
+        changeAddressButton.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeSidebarButton.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        saveAddressButton.addEventListener('click', () => {
+            const flatNo = document.getElementById('flat-no').value;
+            const landmark = document.getElementById('landmark').value;
+
+            if (flatNo && landmark) {
+                const newAddress = `${flatNo}, ${landmark}`;
+                document.getElementById('address').innerText = newAddress;
+                sidebar.classList.remove('open');
+                alert('Address updated successfully!');
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Proceed to Pay functionality
+        document.querySelector('.btn-proceed').addEventListener('click', () => {
+            const paymentOptions = document.getElementById('payment-options');
+            paymentOptions.style.display = 'block';
+        });
+
+        // Quantity and Total Update functionality
+        const pricePerItem = 180;
+        const deliveryFee = 38;
+        const discount = 15;
+        const platformFee = 10;
+        const gst = 10.80;
+
+        let quantity = 1;
+
+        function updateTotal() {
+            const total = (pricePerItem * quantity) + deliveryFee - discount + platformFee + gst;
+            document.getElementById('total').innerText = `₹${total.toFixed(2)}`;
+        }
+
+        document.getElementById('increase').addEventListener('click', () => {
+            quantity++;
+            document.getElementById('quantity').innerText = quantity;
+            updateTotal();
+        });
+
+        document.getElementById('decrease').addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').innerText = quantity;
+                updateTotal();
+            }
+        });
+        // Sidebar toggle functionality with blur effect
+const pageContent = document.querySelector('.container');
+
+changeAddressButton.addEventListener('click', () => {
+    sidebar.classList.add('open');
+    pageContent.style.filter = 'blur(5px)';
+});
+
+closeSidebarButton.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    pageContent.style.filter = 'none';
+});
+
+saveAddressButton.addEventListener('click', () => {
+    const flatNo = document.getElementById('flat-no').value;
+    const landmark = document.getElementById('landmark').value;
+
+    if (flatNo && landmark) {
+        const newAddress = `${flatNo}, ${landmark}`;
+        document.getElementById('address').innerText = newAddress;
+        sidebar.classList.remove('open');
+        pageContent.style.filter = 'none';
+        alert('Address updated successfully!');
+    } else {
+        alert('Please fill in all fields.');
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Retrieve product details from localStorage
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    if (product) {
+        // Update the right section with product details
+        document.querySelector(".card img").src = product.image;
+        document.querySelector(".card img").alt = product.name;
+        document.querySelector(".card h6").textContent = product.name;
+        document.querySelector(".card small").textContent = product.restaurant;
+        document.getElementById("price").textContent = `₹${product.price}`;
+        document.getElementById("total").textContent = `₹${parseFloat(product.price) + 38 - 15 + 10 + 10.8}`; // Example calculation
+    }
+
+    // Add quantity control logic
+    document.getElementById("increase").addEventListener("click", () => updateQuantity(1, product.price));
+    document.getElementById("decrease").addEventListener("click", () => updateQuantity(-1, product.price));
+
+    // Function to update quantity and recalculate total
+    function updateQuantity(change, pricePerItem) {
+        const quantityElement = document.getElementById("quantity");
+        let quantity = parseInt(quantityElement.textContent);
+
+        if (quantity + change > 0) {
+            quantity += change;
+            quantityElement.textContent = quantity;
+
+            const deliveryFee = parseFloat(document.getElementById("delivery-fee").textContent.replace(/[^\d.]/g, ""));
+            const discount = parseFloat(document.getElementById("discount").textContent.replace(/[^\d.]/g, ""));
+            const platformFee = parseFloat(document.getElementById("platform-fee").textContent.replace(/[^\d.]/g, ""));
+            const gst = parseFloat(document.getElementById("gst").textContent.replace(/[^\d.]/g, ""));
+            const total = quantity * parseFloat(pricePerItem) + deliveryFee + platformFee + gst + discount;
+
+            document.getElementById("total").textContent = `₹${total.toFixed(2)}`;
+        }
+    }
+});
+
+    </script>
+</body>
+</html>

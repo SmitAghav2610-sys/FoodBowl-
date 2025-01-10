@@ -1,0 +1,499 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food-Bowl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/brands.min.css" integrity="sha512-58P9Hy7II0YeXLv+iFiLCv1rtLW47xmiRpC1oFafeKNShp8V5bKV/ciVtYqbk2YfxXQMt58DjNfkXFOn62xE+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Checkbox for toggling menu visibility -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            
+            <!-- Menu items -->
+            <ul class="menu-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#food">Category</a></li>
+                <li><a href="dashboard.html">Admin</a></li>
+                <li><a href="#contact">contact us</a></li>
+                <li><a href="mycart.html"><i class="fa-solid fa-cart-shopping"></i>Your cart</a></li>
+            </ul>
+            
+            <!-- Logo -->
+            <h1 class="logo">Food-Bowl</h1>
+            
+            <!-- Hamburger Menu Icon (visible on mobile) -->
+            <label for="menu-toggle" class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+    </nav>
+    
+    <section class="showcase-area" id="showcase">
+        <div class="showcase-container">
+            <!-- Slide Show -->
+            <div class="slideshow-container">
+                <!-- Slide 1 -->
+                <div class="slide fade">
+                    <img src="images/slide1.jpg" alt="Image 1">
+                    <div class="text-overlay">
+                        <!-- <h1 class="main-title" style="color:white;">Eat Right Food</h1>
+                        <p style="color:white;">Eat Healthy, it is good for our health.</p> -->
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide fade">
+                    <img src="images/slide10.webp" alt="Image 2">
+                    <div class="text-overlay">
+                        <!-- <h1 class="main-title" style="color:black;">Eat Right Food</h1>
+                        <p style="color:black;">Eat Healthy, it is good for our health.</p> -->
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide fade">
+                    <img src="images/slide7.avif" alt="Image 3">
+                    <div class="text-overlay">
+                        <!-- <h1 class="main-title" style="color:white;">Eat Right Food</h1>
+                        <p style="color:white;">Eat Healthy, it is good for our health.</p> -->
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slide fade">
+                    <img src="images/slide4.webp" alt="Image 4">
+                    <div class="text-overlay">
+                        <!-- <h1 class="main-title" style="color:white;">Eat Right Food</h1>
+                        <p style="color:white;">Eat Healthy, it is good for our health.</p> -->
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="slide fade">
+                    <img src="images/slide5.jpg" alt="Image 5">
+                    <div class="text-overlay">
+                        <!-- <h1 class="main-title" style="color:black;">Eat Right Food</h1>
+                        <p style="color:black;">Eat Healthy, it is good for our health.</p> -->
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>    
+  
+    <!-- food menu -->
+     
+    <div class="slider-container" id="menu">
+        <h1>Food Menu</h1>
+        <div class="slider">
+            <div class="food-item">
+                <a href="veg.html"><img src="veg.avif" alt="Pizza"></a>
+                <h3>Veg</h3>
+
+            </div>
+            <div class="food-item">
+                <a href="nonveg.html"><img src="nonveg.jpg" alt="Burger"></a> 
+                <h3>Nonveg</h3>
+            </div>
+            <div class="food-item">
+                <a href="snacks.html"><img src="snacks.jpg" alt="Salad"></a>
+                <h3>Snacks</h3>
+            </div>
+            <div class="food-item">
+                <img src="tea.jpg" alt="Pasta">
+                <h3>Tea</h3>
+            </div>
+          
+            <div class="food-item">
+                <img src="biryani.jpg" alt="Sushi">
+                <h3>Biryani</h3>
+            </div>
+        </div>
+    </div>
+    <section class="main">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by location or restaurant name" oninput="handleSearch()">
+            <button onclick="searchCards()">Search</button>
+        </div>
+        <div class="container" id="cardsContainer">
+            <div class="card" data-location="Chhindwara Locality" data-name="The Paratha House"  onclick="redirectToDetails('The Paratha House', '4.2 ⭐ | 55-60 mins', 'paratha.jpg', '20% OFF')">
+                <img src="paratha.jpg" alt="The Paratha House">
+                <div class="restaurant-info">
+                    <div class="name">The Paratha House</div>
+                    <div class="rating">4.2 ⭐ | 55-60 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>North Indian</h3>
+                    <p><span class="original-price">₹249</span> <span class="discounted-price">₹199</span></p>
+                    <p class="discount">20% OFF</p>
+                </div>
+            </div>
+            <script>
+                function redirectToDetails(name, rating, imgSrc, offer) {
+                    // Use localStorage to pass data to the details page
+                    localStorage.setItem('restaurantName', name);
+                    localStorage.setItem('restaurantRating', rating);
+                    localStorage.setItem('restaurantImage', imgSrc);
+                    localStorage.setItem('restaurantOffer', offer);
+            
+                    // Redirect to details page
+                    window.location.href = "details.html";
+                }
+            </script>
+            <div class="card" data-location="Khajri Chowk" data-name="Indian Coffee House">
+                <img src="coffee2.jpg" alt="Indian Coffee House">
+                <div class="restaurant-info">
+                    <div class="name">Indian Coffee House</div>
+                    <div class="rating">4.4 ⭐ | 40-45 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>South Indian, North Indian</h3>
+                    <p><span class="original-price">₹150</span> <span class="discounted-price">₹120</span></p>
+                    <p class="discount">20% OFF</p>
+                </div>
+            </div>
+            <div class="card" data-location="Chhindwara City" data-name="Annu's Kitchen">
+                <img src="anus.jpg" alt="Annu's Kitchen">
+                <div class="restaurant-info">
+                    <div class="name">Annu's Kitchen</div>
+                    <div class="rating">4.6 ⭐ | 75-80 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>North Indian, South Indian</h3>
+                    <p><span class="original-price">₹599</span> <span class="discounted-price">₹499</span></p>
+                    <p class="discount">17% OFF</p>
+                </div>
+            </div>
+            <div class="card" data-location="Pune Camp" data-name="Biryani Hub">
+                <img src="Biryani1.jpg" alt="Biryani Hub">
+                <div class="restaurant-info">
+                    <div class="name">Biryani Hub</div>
+                    <div class="rating">4.3 ⭐ | 50-60 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>Hyderabadi Biryani</h3>
+                    <p><span class="original-price">₹299</span> <span class="discounted-price">₹249</span></p>
+                    <p class="discount">16% OFF</p>
+                </div>
+            </div>
+            <div class="card" data-location="Kothrud, Pune" data-name="Pizza Mania">
+                <img src="pizza.jpg" alt="Pizza Mania">
+                <div class="restaurant-info">
+                    <div class="name">Pizza Mania</div>
+                    <div class="rating">4.1 ⭐ | 35-45 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>Italian, Pizza</h3>
+                    <p><span class="original-price">₹399</span> <span class="discounted-price">₹349</span></p>
+                    <p class="discount">13% OFF</p>
+                </div>
+            </div>
+            <div class="card" data-location="Viman Nagar, Pune" data-name="Dessert Palace">
+                <img src="dessert.jpg" alt="Dessert Palace">
+                <div class="restaurant-info">
+                    <div class="name">Dessert Palace</div>
+                    <div class="rating">4.7 ⭐ | 30-40 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>Desserts, Cakes</h3>
+                    <p><span class="original-price">₹199</span> <span class="discounted-price">₹149</span></p>
+                    <p class="discount">25% OFF</p>
+                </div>
+            </div>
+            <div class="card" data-location="Baner, Pune" data-name="Tandoori Treats">
+                <img src="tandoori.jpg" alt="Tandoori Treats">
+                <div class="restaurant-info">
+                    <div class="name">Tandoori Treats</div>
+                    <div class="rating">4.5 ⭐ | 45-55 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>Tandoori Special</h3>
+                    <p><span class="original-price">₹349</span> <span class="discounted-price">₹299</span></p>
+                    <p class="discount">14% OFF</p>
+                </div>
+            </div>
+         
+            <div class="card" data-location="Hadapsar, Pune" data-name="Pasta Junction">
+                <img src="pasta.jpg" alt="Pasta Junction">
+                <div class="restaurant-info">
+                    <div class="name">Pasta Junction</div>
+                    <div class="rating">4.2 ⭐ | 25-35 mins</div>
+                </div>
+                <div class="product-details">
+                    <h3>Italian, Pasta</h3>
+                    <p><span class="original-price">₹299</span> <span class="discounted-price">₹249</span></p>
+                    <p class="discount">16% OFF</p>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            function searchCards() {
+                const input = document.getElementById('searchInput').value.toLowerCase();
+                const cards = document.querySelectorAll('.card');
+    
+                cards.forEach(card => {
+                    const location = card.getAttribute('data-location').toLowerCase();
+                    const name = card.getAttribute('data-name').toLowerCase();
+    
+                    // Show card if either location or name matches the search input
+                    if (location.includes(input) || name.includes(input)) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+    
+            function handleSearch() {
+                const input = document.getElementById('searchInput').value;
+    
+                if (input.trim() === "") {
+                    
+                    location.reload();
+                }
+            }
+        </script>
+    </section>
+
+    <section id="about">
+        <div class="about-wrapper container">
+            <div class="about-text">
+                <p class="small">About Us</p>
+                <h2>Welcome to Food-Bowl!</h2>
+                <p>
+                    At <strong>Food-Bowl</strong>, we're passionate about bringing you a variety of mouthwatering dishes made with the freshest ingredients. Whether you're in the mood for spicy, savory, or sweet, we have something to satisfy every craving.
+                </p>
+                <p>
+                    Join us for a delicious dining experience that’s all about quality, flavor, and food made just the way you like it.
+                </p>
+            </div>
+            <div class="about-img">
+                <img src="about.jpg" alt="Delicious Food" />
+            </div>
+        </div>
+    </section>
+    
+<section id="food">
+    <h2>Types of food</h2>
+    <div class="food-container container">
+        <div class="food-type fruite">
+            <div class="img-container">
+                <img src="https://i.postimg.cc/yxThVPXk/food1.jpg" alt="error" />
+                <div class="img-content">
+                    <h3>fruite</h3>
+                    <a href="https://en.wikipedia.org/wiki/Fruit" class="btn btn-primary" target="blank">learn
+                        more</a>
+                </div>
+            </div>
+        </div>
+        <div class="food-type vegetable">
+            <div class="img-container">
+                <img src="https://i.postimg.cc/Nffm6Rkk/food2.jpg" alt="error" />
+                <div class="img-content">
+                    <h3>vegetable</h3>
+                    <a href="https://en.wikipedia.org/wiki/Vegetable" class="btn btn-primary" target="blank">learn
+                        more</a>
+                </div>
+            </div>
+        </div>
+        <div class="food-type grin">
+            <div class="img-container">
+                <img src="https://i.postimg.cc/76ZwsPsd/food3.jpg" alt="error" />
+                <div class="img-content">
+                    <h3>grin</h3>
+                    <a href="https://en.wikipedia.org/wiki/Grain" class="btn btn-primary" target="blank">learn
+                        more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    
+    <section id="testimonials">
+        <h2 class="testimonial-title">What Our Customers Say</h2>
+        <div class="testimonial-container container">
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="3cs.jpg" alt="" />
+                        <p class="customer-name">Kaustubh Avhad</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">
+                    "Exceptional food, warm ambiance, and top-notch service – a dining experience to remember!"
+
+                </p>
+
+            </div>
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="1cs.jpg" alt="" />
+                        <p class="customer-name">Karan Rana</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">
+                    "Delicious flavors, impeccable service, and a cozy atmosphere – truly outstanding!"
+
+                </p>
+
+            </div>
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="2cs.jpg" alt="" />
+                        <p class="customer-name">Nayan Patel</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">
+                    "Great food, friendly staff, and a perfect vibe highly recommend!"
+
+                </p>
+
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <div class="contact-container container">
+           
+            <div class="contact-img">
+                <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="Restaurant Image" />
+            </div>
+    
+          
+            <div class="form-container">
+                <h2>Contact Us</h2>
+                <input type="text" placeholder="Your Name" />
+                <input type="text" placeholder="Mobile Number" />
+                <input type="email" placeholder="E-Mail" />
+                <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
+                <a href="#" class="btn btn-primary">Submit</a>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer>
+        <div class="footer-bottom">
+            <!-- <p>For better experience,download the food-bowl app now</p> -->
+            <a href="#">For better experience,download the Food-Bowl app now</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+          </div>
+         
+          <div class="footer-container">
+          <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+              <li><a href="#">Help & Support</a></li>
+              <li><a href="#">Partner with us</a></li>
+              <li><a href="#">Ride with us</a></li>
+              
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <div class="legal">
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                  </ul>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h4>Available in</h4>
+            <ul>
+              <li><a href="#">Pune</a></li>
+              <li><a href="#">Mumbai</a></li>
+              <li><a href="#">Hydrabad</a></li>
+              <li><a href="#">Delhi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Life at food-bowl</h4>
+            <ul>
+              <li><a href="#">Explore With Food-Bowl</a></li>
+              <li><a href="#">Food-Bowl News</a></li>
+              <li><a href="#">Snackables</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-section1">
+            <p>Restraunt &copy; all rights reserved</p>
+        <p>Contact us : foodbowl111@gmail.com</p>
+        <p>Phone no.:9975775550/9172152840</p>
+        <p >Powered By@ <a href="https://www.cybromatechtechnology.in/" class="a1">Cybromatech Technology Pvt.Ltd.2024</a></p>
+        </div>
+    
+      </footer>
+
+  
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+
+</html>
+
+</body>
+
+</html>

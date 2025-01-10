@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snacks Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            color: #333;
+        }
+/* ............/navbar/............ *
+
+/* desktop mode............/// */
+
+.navbar input[type="checkbox"],
+.navbar .hamburger-lines {
+  display: none;
+}
+
+.navbar {
+  box-shadow: 0px 5px 10px 0px #aaa;
+  width: 100%;
+  background: black;
+  color: white;
+  opacity: 0.85;
+  height: 80px;
+  z-index: 3;
+  padding: 10px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  align-items: center;
+}
+
+.menu-items {
+  order: 2;
+  display: flex;
+  /* margin-left: 100px; */
+  position: absolute;
+  right: 0;
+  padding: 10px;
+   
+}
+
+.menu-items li {
+  list-style: none;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.menu-items a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+  right: 0;
+}
+
+.menu-items a:hover {
+  color: #117964;
+  transition: color 0.3s ease-in-out;
+}
+.logo {
+  order: 1;
+  font-size: 2.3rem;
+  margin-top: -1rem;
+  position: absolute;
+  margin-left: 10px;
+  left: 0; 
+  filter: drop-shadow(10px 10px 10px 0.8rem rgb(214, 5, 5));
+}
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* Style for the search input field */
+  .search-input {
+    width: 300px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    border-color: #4CAF50; /* Green color when focused */
+  }
+
+  /* Style for the search button */
+  .search-btn {
+    background-color:cornflowerblue; /* Green background */
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+
+  .search-btn i {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  /* Small screen responsiveness */
+  @media (max-width: 600px) {
+    .search-input {
+      width: 80%;
+    }
+  }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        header input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #555;
+            outline: none;
+        }
+
+        header input:focus {
+            border-color: #28a745;
+        }
+
+        /* Main Section Styling */
+        main {
+            padding: 20px;
+        }
+
+        .category {
+            margin-bottom: 60px;
+        }
+
+        .category h2 {
+            font-size: 2rem;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            position:relative;
+            right: 130px;
+            width: 180px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card .restaurant-info {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .card .restaurant-info .name {
+            font-weight: bold;
+        }
+
+        .card .restaurant-info .rating {
+            color:red;
+        }
+
+        .card .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #28a745;
+            margin: 10px 0;
+        }
+
+        .card .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+
+        .card .product-details .left {
+            text-align: left;
+            width: 65%;
+        }
+
+        .card .product-details .left h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .card .product-details .left .price {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #d1289e;
+        }
+
+        .card .product-details .right {
+            width: 30%;
+        }
+
+        .card .buy-btn {
+            background-color:#d1289e;
+            color: white;
+            font-size: 0.7rem;
+            padding: 7px 12px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .card .buy-btn:hover {
+            background-color: #218838;
+        }
+              /* General Footer Styling */
+footer {
+  background-color: #323232;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: bold;
+  margin-right: 10px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom img {
+  margin-top: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.footer-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.footer-section {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0c14b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  font-size: 10px;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+  color: #b1342d;
+  text-decoration: underline;
+}
+
+/* Legal Section Styling */
+.legal ul {
+  padding-right: 0;
+}
+
+.legal ul li {
+  margin: 8px 0;
+}
+
+/* Social Icons Styling */
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  margin: 0 10px 0 10px;
+  display: inline-block;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #1abc9c;
+}
+
+/* Footer Bottom Section */
+.footer-section p {
+  margin: 10px 0;
+  color: #bdc3c7;
+}
+
+.footer-section a.a1 {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-section a.a1:hover {
+  text-decoration: underline;
+}
+.footer-section1 {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 16px;
+}
+
+.footer-section1 p {
+  margin: 5px 0;
+  color: #fff;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1 {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1:hover {
+    color: blue;
+  text-decoration: underline;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+/* media  */
+@media screen and (max-width: 768px) {
+   
+    .category h2{
+        text-align: center;
+    }
+    .search-container{
+        width:90%;
+        margin-left: 20px;
+    }
+
+.buy-btn{
+    max-width: fit-content;
+}
+.footer-bottom{
+    font-size:2px;
+    font-weight: 0;
+}
+footer{
+    text-align: center;
+ }
+}
+
+/* General Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Menu Styles */
+.menu-items {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-items li {
+    margin: 0;
+    width: auto;
+}
+
+.menu-items a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+}
+
+/* Hide Checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    right: 20px; /* Aligns the menu icon to the right */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .menu-items {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        font-size: 1rem;
+        width: 100%;
+        background-color: black;
+    }
+
+    .menu-items li {
+        width: 100%;
+    }
+
+    .menu-items a {
+        /* padding: 15px 0; */
+        width: 100%;
+
+    }
+
+    .menu-toggle:checked ~ .menu-items {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+            <label for="menu-toggle" class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu-items">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="veg.html">Veg Dishes</a></li>
+                <li><a href="nonveg.html">Non-Veg Dishes</a></li>
+                <li><a href="snacks.html">Snacks</a></li>
+                <li><a href="mycart.html">Your Cart</a></li>
+            </ul>
+            <h1 class="logo">Food-Bowl</h1>
+        </div>
+    </nav>
+    
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-input" placeholder="Search for Snack's...">
+        <button class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div id="filtered-results-container" class="cards-container" style="margin: 20px; display: none;"></div>
+    
+      
+      <!-- Add Font Awesome for the search icon -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <main>
+        <!-- Chicken Dishes -->
+        <section class="category" id="chicken-dishes">
+            <h2>Snacks Dishes</h2>
+            <div class="cards-container" id="chickenDishesContainer" >
+                <div class="card"  data-name="Samosa">
+                    <div class="restaurant-info">
+                        <div class="name" data-name="Spicy Bites Restaurant">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Samosa</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s1.avif" alt="Samosa">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Calcutta Chop ">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Calcutta Chop </h3>
+                            <p class="price">&#8377 169</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s2.avif" alt="Calcutta Chop ">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Frankie">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.8 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Frankie</h3>
+                            <p class="price">&#8377 149</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s3.avif" alt="Frankie">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Momo">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Momo</h3>
+                            <p class="price">&#8377 230</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s4.avif" alt="Momo">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Vada Pav">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Vada Pav</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s5.avif" alt="Vada Pav">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Medu Vada ">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Medu Vada </h3>
+                            <p class="price">&#8377 169</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s6.avif" alt="Medu Vada ">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Puran Poli">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.8 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Puran Poli</h3>
+                            <p class="price">&#8377 149</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s7.avif" alt="Puran Poli">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Pav Bhaji">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Pav Bhaji</h3>
+                            <p class="price">&#8377 230</p>
+                        </div>
+                        <div class="right">
+                            <img src="snackimage/s8.avif" alt="Pav Bhaji ">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script src="snacks.js"></script>
+    </main>
+    <footer>
+        <div class="footer-bottom">
+            <!-- <p>For better experience,download the Rajpalace app now</p> -->
+            <a href="#">For better experience,download the Food-Bowl app now</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+          </div>
+         
+          <div class="footer-container">
+          <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+              <li><a href="#">Help & Support</a></li>
+              <li><a href="#">Partner with us</a></li>
+              <li><a href="#">Ride with us</a></li>
+              
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <div class="legal">
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                  </ul>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h4>Available in</h4>
+            <ul>
+              <li><a href="#">Pune</a></li>
+              <li><a href="#">Mumbai</a></li>
+              <li><a href="#">Hydrabad</a></li>
+              <li><a href="#">Delhi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Life at Food-Bowl</h4>
+            <ul>
+              <li><a href="#">Explore With Food-Bowl</a></li>
+              <li><a href="#">Food-Bowl News</a></li>
+              <li><a href="#">Snackables</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-section1">
+          <p>Restraunt &copy; all rights reserved</p>
+      <p>Contact us : foodbowl111@gmail.com</p>
+      <p>Phone no.:9975775550/9172152840</p>
+      <p >Powered By@ <a href="https://www.cybromatechtechnology.in/" class="a1">Cybromatech Technology Pvt.Ltd.2024</a></p>
+      </div>
+    
+      </footer>
+
+</body>
+</html>

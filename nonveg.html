@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Veg Restaurant Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            color: #333;
+        }
+
+        navbar input[type="checkbox"],
+.navbar .hamburger-lines {
+  display: none;
+}
+
+.navbar {
+  box-shadow: 0px 5px 10px 0px #aaa;
+  width: 100%;
+  background: black;
+  color: white;
+  opacity: 0.85;
+  height: 80px;
+  z-index: 3;
+  padding: 10px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  align-items: center;
+}
+
+.menu-items {
+  order: 2;
+  display: flex;
+  /* margin-left: 100px; */
+  position: absolute;
+  right: 0;
+  padding: 10px;
+   
+} 
+
+.menu-items li {
+  
+  list-style: none;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.menu-items a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+  right: 0;
+}
+
+.menu-items a:hover {
+  color: #117964;
+  transition: color 0.3s ease-in-out;
+}
+.logo {
+  order: 1;
+  font-size: 2.3rem;
+  margin-top: -1rem;
+  position: absolute;
+  margin-left: 10px;
+  left:0; 
+  filter: drop-shadow(10px 10px 10px 0.8rem rgb(214, 5, 5));
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* Style for the search input field */
+  .search-input {
+    width: 300px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    border-color: #4CAF50; /* Green color when focused */
+  }
+
+  /* Style for the search button */
+  .search-btn {
+    background-color:cornflowerblue; /* Green background */
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+
+  .search-btn i {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  /* Small screen responsiveness */
+  @media (max-width: 600px) {
+    .search-input {
+      width: 80%;
+    }
+  }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        header input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #555;
+            outline: none;
+        }
+
+        header input:focus {
+            border-color: #28a745;
+        }
+
+        /* Main Section Styling */
+        main {
+            padding: 20px;
+        }
+
+        .category {
+            margin-bottom: 60px;
+        }
+
+        .category h2 {
+            font-size: 2rem;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            position:relative;
+            right: 130px;
+            width: 180px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card .restaurant-info {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .card .restaurant-info .name {
+            font-weight: bold;
+        }
+
+        .card .restaurant-info .rating {
+            color:red;
+        }
+
+        .card .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #28a745;
+            margin: 10px 0;
+        }
+
+        .card .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+
+        .card .product-details .left {
+            text-align: left;
+            width: 65%;
+        }
+
+        .card .product-details .left h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .card .product-details .left .price {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #d1289e;
+        }
+
+        .card .product-details .right {
+            width: 30%;
+        }
+
+        .card .buy-btn {
+            background-color:#d1289e;
+            color: white;
+            font-size: 0.7rem;
+            padding: 7px 12px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .card .buy-btn a{
+            text-decoration: none;
+            color:white ;
+        }
+        .card .buy-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header input {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card .product-details {
+                flex-direction: column;
+            }
+
+            .card .product-details .left {
+                width: 100%;
+                text-align: center;
+            }
+
+            .card .product-details .right {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+.category {
+  background: linear-gradient(145deg, #f8f9fa, #e9ecef); 
+  padding: 50px 0; 
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.category h2 {
+  text-align: center;
+  font-size: 2rem; 
+  color: black; 
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px; 
+  position: relative; 
+}
+
+
+.category h2::after {
+  content: '';
+  position: absolute;
+  width: 40%; 
+  height: 4px;
+  background-color: #4CAF50;
+  bottom: -8px; 
+  left: 30%; 
+  border-radius: 2px; 
+}
+
+
+.category h2 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); 
+}
+/* General Footer Styling */
+footer {
+  background-color: #323232;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: bold;
+  margin-right: 10px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom img {
+  margin-top: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.footer-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.footer-section {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0c14b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  font-size: 10px;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+  color: #b1342d;
+  text-decoration: underline;
+}
+
+/* Legal Section Styling */
+.legal ul {
+  padding-right: 0;
+}
+
+.legal ul li {
+  margin: 8px 0;
+}
+
+/* Social Icons Styling */
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  margin: 0 10px 0 10px;
+  display: inline-block;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #1abc9c;
+}
+
+/* Footer Bottom Section */
+.footer-section p {
+  margin: 10px 0;
+  color: #bdc3c7;
+}
+
+.footer-section a.a1 {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-section a.a1:hover {
+  text-decoration: underline;
+}
+.footer-section1 {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 16px;
+}
+
+.footer-section1 p {
+  margin: 5px 0;
+  color: #fff;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1 {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+
+}
+
+.footer-section1 a.a1:hover {
+  color: blue;
+  text-decoration: underline;
+
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+/* media  */
+@media screen and (max-width: 768px) {
+    *{
+      overflow-x: hidden;
+      align-content: center;
+    }
+    .category h2{
+        text-align: center;
+    }
+    .search-container{
+        width:90%;
+        margin-left: 20px;
+    }
+.right img{
+  margin-left:70%;
+}
+.buy-btn{
+    max-width: fit-content;
+}
+}
+
+/* General Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Menu Styles */
+.menu-items {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-items li {
+    margin: 0;
+    width: auto;
+}
+
+.menu-items a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+}
+
+/* Hide Checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    right: 20px; /* Aligns the menu icon to the right */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .menu-items {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        font-size: 1rem;
+        width: 100%;
+        background-color: black;
+    }
+
+    .menu-items li {
+        width: 100%;
+    }
+
+    .menu-items a {
+        /* padding:0; */
+        width: 100%;
+
+    }
+
+    .menu-toggle:checked ~ .menu-items {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+            <label for="menu-toggle" class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu-items">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="veg.html">Veg Dishes</a></li>
+                <li><a href="nonveg.html">Non-Veg Dishes</a></li>
+                <li><a href="snacks.html">Snacks</a></li>
+                <li><a href="mycart.html">Your Cart</a></li>
+            </ul>
+            <h1 class="logo">Food-Bowl</h1>
+        </div>
+    </nav>
+    
+      
+
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-input" placeholder="Search for Non-Veg food...">
+        <button class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div id="filtered-results-container" class="cards-container" style="margin: 20px; display: none;"></div>
+    
+      
+      <!-- Add Font Awesome for the search icon -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <main>
+        <!-- Chicken Dishes -->
+        <section class="category" id="chicken-dishes">
+            <h2>Chicken Dishes</h2>
+            <div class="cards-container" id="chickenDishesContainer" >
+                <div class="card" id="tikka" data-name="Chicken Tikka" onclick="goToOrderPage('Chicken Tikka', 'non-veg-img/chicken-tikka.webp', 179, 'Spicy Bites Restaurant', '4.5')">
+                    <div class="restaurant-info" id="info">
+                        <div class="name" data-name="Spicy Bites Restaurant">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Tikka</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken-tikka.webp" alt="Chicken Tikka">
+                            <!-- <button class="buy-btn" onclick="addToOrder({ id: 1, name: 'Chicken Tikka', description: 'Delicious grilled burger with fresh lettuce, tomato, and cheese.', price: 179, image: 'non-veg-img/chicken-tikka.webp', quantity: 1 })"><a href="order-details.html">Order Now</a></button> -->
+                            <!-- <button onclick="addToOrder({ id: 1, name: 'Chicken Tikka', description: 'Delicious grilled burger with fresh lettuce, tomato, and cheese.', price: 179, image: 'non-veg-img/chicken-tikka.webp', quantity: 1 })">Order Now</button> -->
+                            <button class="buy-btn"><a href="mycart.html">Order Now</a></button>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Seekh Kebab">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Seekh Kebab</h3>
+                            <p class="price">&#8377 169</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken-seekh-kabab.webp" alt="Chicken Seekh Kebab">
+                            <!-- <button class="buy-btn" onclick="addToOrder({ id: 2, name: 'Chicken Seekh Kebab', description: 'Delicious grilled burger with fresh lettuce, tomato, and cheese.', price: 169, image: 'non-veg-img/chicken-seekh-kabab.webp', quantity: 1 })">Order Now</button> -->
+                            <button class="buy-btn"><a href="mycart.html">Order Now</a></button>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Malai Tikka">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.8 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Malai Tikka</h3>
+                            <p class="price">&#8377 149</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/malai tikka.jpg" alt="Chicken Malai Tikka">
+                            <!-- <button class="buy-btn" onclick="addToOrder({ id: 3, name: 'Chicken Malai Tikka', description: 'Delicious grilled burger with fresh lettuce, tomato, and cheese.', price: 149, image: 'non-veg-img/malai tikka.jpg', quantity: 1 })">Order Now</button> -->
+                            <button class="buy-btn">Order Now</button>
+                       
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Wings (Spicy)">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Wings (Spicy)</h3>
+                            <p class="price">&#8377 230</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/wings.jpg" alt="Chicken Wings">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Tikka">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Tikka</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken-tikka.webp" alt="Chicken Tikka">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Seekh Kebab">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Seekh Kebab</h3>
+                            <p class="price">&#8377 169</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken-seekh-kabab.webp" alt="Chicken Seekh Kebab">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Malai Tikka">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.8 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Malai Tikka</h3>
+                            <p class="price">&#8377 149</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/malai tikka.jpg" alt="Chicken Malai Tikka">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Wings (Spicy)">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Wings (Spicy)</h3>
+                            <p class="price">&#8377 230</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/wings.jpg" alt="Chicken Wings">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    
+         <!-- Biryani Dishes -->
+<section class="category"  id="biryani-dishes">
+    <h2>Biryani Dishes</h2>
+    <div class="cards-container" id="biryaniDishesContainer">
+
+        <!-- Chicken Biryani -->
+        <div class="card"  data-name="Chicken Biryani ,Biryani House">
+            <div class="restaurant-info">
+                <div class="name">Biryani House</div>
+                <div class="rating">Rating: 4.7 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Chicken Biryani</h3>
+                    <p class="price">&#8377 149</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/chicken biryani.jpeg" alt="Chicken Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mutton Biryani -->
+        <div class="card"  data-name="Mutton Biryani">
+            <div class="restaurant-info">
+                <div class="name">Mutton Magic</div>
+                <div class="rating">Rating: 4.8 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Mutton Biryani</h3>
+                    <p class="price">&#8377 169</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/mutton-biriyani-recipe.jpeg" alt="Mutton Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prawn Biryani -->
+        <div class="card"  data-name="Prawn Biryani">
+            <div class="restaurant-info">
+                <div class="name">Seafood Haven</div>
+                <div class="rating">Rating: 4.7 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Prawn Biryani</h3>
+                    <p class="price">&#8377 179</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/prawn biryani.jpeg" alt="Prawn Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hyderabadi Biryani -->
+        <div class="card"  data-name="Hyderabadi Biryani">
+            <div class="restaurant-info">
+                <div class="name">Hyderabadi Tandoor</div>
+                <div class="rating">Rating: 4.9 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Hyderabadi Biryani</h3>
+                    <p class="price">&#8377 185</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/Hyderabadi-chicken-Biryani.jpg" alt="Hyderabadi Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kashmiri Biryani -->
+        <div class="card"  data-name="Kashmiri Biryani">
+            <div class="restaurant-info">
+                <div class="name">Kashmiri Delight</div>
+                <div class="rating">Rating: 4.8 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Kashmiri Biryani</h3>
+                    <p class="price">&#8377 199</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/kashmiri biryani.jpeg" alt="Kashmiri Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Malabar Biryani -->
+        <div class="card"  data-name="Malabar Biryani">
+            <div class="restaurant-info">
+                <div class="name">Malabar Tastes</div>
+                <div class="rating">Rating: 4.6 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Malabar Biryani</h3>
+                    <p class="price">&#8377 159</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/malabar biryani.webp" alt="Malabar Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Biryani -->
+        <div class="card"  data-name="Egg Biryani">
+            <div class="restaurant-info">
+                <div class="name">Royal Biryani</div>
+                <div class="rating">Rating: 4.8 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Biryani</h3>
+                    <p class="price">&#8377 129</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg biryani.jpg" alt="Egg Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lamb Biryani -->
+        <div class="card"  data-name="Lamb Biryani">
+            <div class="restaurant-info">
+                <div class="name">Lamb Legends</div>
+                <div class="rating">Rating: 4.9 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Lamb Biryani</h3>
+                    <p class="price">&#8377 195</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/lamb biryani.jpeg" alt="Lamb Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Non-Veg Soup -->
+        <section class="category"  id="Non-Veg Soup-dishes">
+            <h2>Non-Veg Soup</h2>
+            <div class="cards-container" id="Non-VegSoupDishesContainer">
+                <div class="card">
+                    <div class="restaurant-info" data data-name="Chicken Soup">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Soup</h3>
+                            <p class="price">&#8377 69</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken soup.webp" alt="Chicken Soup">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Mutton Soup">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Mutton Soup</h3>
+                            <p class="price">&#8377 99</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/mutton soup.jpg" alt="Mutton Soup">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Soup">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.6 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Soup</h3>
+                            <p class="price">&#8377 69</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken soup.webp" alt="Chicken Soup">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Mutton Soup">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Mutton Soup</h3>
+                            <p class="price">&#8377 99</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/mutton soup.jpg" alt="Mutton Soup">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Non-Veg Gravy -->
+        <section class="category" id="curry">
+            <h2>Non-Veg Gravy</h2>
+            <div class="cards-container">
+                <div class="card" data-name="Chicken Curry">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Curry</h3>
+                            <p class="price">&#8377 180</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken-curry-recipe.jpg" alt="Chicken Curry">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Butter Chicken">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Butter Chicken</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/butter chicken.jpeg" alt="Butter Chicken">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Curry">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.5 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Egg Curry</h3>
+                            <p class="price">&#8377 180</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/egg curry.jpeg" alt="Chicken Curry">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Butter Chicken">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Butter Chicken</h3>
+                            <p class="price">&#8377 179</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/butter chicken.jpeg" alt="Butter Chicken">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Egg Dishes -->
+         <section class="category" id="eggDishes">
+            <h2>Egg Dishes</h2>
+            <div class="cards-container" id="eggDishesContainer">
+        <!-- Egg Bhurji -->
+        <div class="card" data-name="Egg Bhurji">
+            <div class="restaurant-info">
+                <div class="name">Spice & Grill</div>
+                <div class="rating">Rating: 4.5 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Bhurji</h3>
+                    <p class="price">&#8377 99</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg bhurji.jpg" alt="Egg Bhurji">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deviled Eggs -->
+        <div class="card" data-name="Deviled Eggs">
+            <div class="restaurant-info">
+                <div class="name">Eggcellent Delights</div>
+                <div class="rating">Rating: 4.6 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Deviled Eggs</h3>
+                    <p class="price">&#8377 89</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/-Devilled-Eggs-CMS.jpg" alt="Deviled Eggs">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Pakora -->
+        <div class="card" data-name="Egg Pakora">
+            <div class="restaurant-info">
+                <div class="name">Bite Me Foods</div>
+                <div class="rating">Rating: 4.4 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Pakora</h3>
+                    <p class="price">&#8377 79</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg-pakora-recipe-main-photo.jpg" alt="Egg Pakora">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Tikka -->
+        <div class="card" data-name="Egg Tikka">
+            <div class="restaurant-info">
+                <div class="name">Grill Masters</div>
+                <div class="rating">Rating: 4.7 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Tikka</h3>
+                    <p class="price">&#8377 109</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg tikka.jpg" alt="Egg Tikka">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Curry -->
+        <div class="card" data-name="Egg Curry">
+            <div class="restaurant-info">
+                <div class="name">Curry Kingdom</div>
+                <div class="rating">Rating: 4.6 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Curry</h3>
+                    <p class="price">&#8377 199</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg curry.jpeg" alt="Egg Curry">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Biryani -->
+        <div class="card" data-name="Egg Biryani">
+            <div class="restaurant-info">
+                <div class="name">Royal Biryani</div>
+                <div class="rating">Rating: 4.8 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Biryani</h3>
+                    <p class="price">&#8377 129</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg biryani.jpg" alt="Egg Biryani">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Pulao -->
+        <div class="card" data-name="Egg Pulao">
+            <div class="restaurant-info">
+                <div class="name">Rice & Spice</div>
+                <div class="rating">Rating: 4.3 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Pulao</h3>
+                    <p class="price">&#8377 99</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg pulao.jpeg" alt="Egg Pulao">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tandoori Eggs -->
+        <div class="card" data-name="Tandoori Eggs">
+            <div class="restaurant-info">
+                <div class="name">Tandoor Treats</div>
+                <div class="rating">Rating: 4.5 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Tandoori Eggs</h3>
+                    <p class="price">&#8377 124</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/tandoori egg.cms" alt="Tandoori Eggs">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Caesar Salad -->
+        <div class="card" data-name="Egg Caesar Salad">
+            <div class="restaurant-info">
+                <div class="name">Salad Station</div>
+                <div class="rating">Rating: 4.4 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Caesar Salad</h3>
+                    <p class="price">&#8377 79</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/Egg-Caesar-Salad-6.webp" alt="Egg Caesar Salad">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Egg Mayo Salad -->
+        <div class="card" data-name="Egg Mayo Salad">
+            <div class="restaurant-info">
+                <div class="name">Healthy Eats</div>
+                <div class="rating">Rating: 4.2 ⭐</div>
+            </div>
+            <div class="divider"></div>
+            <div class="product-details">
+                <div class="left">
+                    <h3>Egg Mayo Salad</h3>
+                    <p class="price">&#8377 89</p>
+                </div>
+                <div class="right">
+                    <img src="non-veg-img/egg mayo salad.webp" alt="Egg Mayo Salad">
+                    <button class="buy-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+        <!-- Non-Veg Thali -->
+        <section class="category" id="thali">
+            <h2>Non-Veg Thali</h2>
+            <div class="cards-container">
+                <div class="card" data-name="Chicken Thali">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Thali</h3>
+                            <p class="price">&#8377 199</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken thali2.avif" alt="Chicken Thali">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card"c data-name="Mutton Thali">
+                    <div class="restaurant-info">
+                        <div class="name">Spicy Bites Restaurant</div>
+                        <div class="rating">Rating: 4.8 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Mutton Thali</h3>
+                            <p class="price">&#8377 299</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/mutton thali.jpeg" alt="Mutton Thali">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" data-name="Fish Thali">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Fish Thali</h3>
+                            <p class="price">&#8377 159</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/fish thali.webp" alt="Fish Thali">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" data-name="Chicken Thali">
+                    <div class="restaurant-info">
+                        <div class="name">Grill House</div>
+                        <div class="rating">Rating: 4.7 ⭐</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="product-details">
+                        <div class="left">
+                            <h3>Chicken Thali</h3>
+                            <p class="price">&#8377 199</p>
+                        </div>
+                        <div class="right">
+                            <img src="non-veg-img/chicken thali.jpg" alt="Chicken Thali">
+                            <button class="buy-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Non-Veg Lollipop -->
+        <section class="category">
+            
+                <h2>Non-Veg Lollipop</h2>
+                <div class="cards-container">
+                       <div class="card" data-name="Chicken Lollipop">
+                            <div class="restaurant-info">
+                                <div class="name">Grill House</div>
+                                <div class="rating">Rating: 4.7 ⭐</div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="product-details">
+                                <div class="left">
+                                    <h3>Chicken Lollipop</h3>
+                                    <p class="price">&#8377 49</p>
+                                </div>
+                                <div class="right">
+                                    <img src="non-veg-img/chicken lollipop.jpg" alt="Chicken Lollipop">
+                                    <button class="buy-btn">Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" data-name="Mutton Lollipop">
+                            <div class="restaurant-info">
+                                <div class="name">Spicy Bites Restaurant</div>
+                                <div class="rating">Rating: 4.8 ⭐</div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="product-details">
+                                <div class="left">
+                                    <h3>Mutton Lollipop</h3>
+                                    <p class="price">&#8377 79</p>
+                                </div>
+                                <div class="right">
+                                    <img src="non-veg-img/mutton lollipop.jpeg" alt="Mutton Lollipop">
+                                    <button class="buy-btn">Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" data-name="Prawn Lollipop">
+                            <div class="restaurant-info">
+                                <div class="name">Grill House</div>
+                                <div class="rating">Rating: 4.7 ⭐</div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="product-details">
+                                <div class="left">
+                                    <h3>Prawn Lollipop</h3>
+                                    <p class="price">&#8377 59</p>
+                                </div>
+                                <div class="right">
+                                    <img src="non-veg-img/prwn lollipo.jpeg" alt="Prawn Lollipop">
+                                    <button class="buy-btn">Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-bottom">
+                <!-- <p>For better experience,download the food-bowl app now</p> -->
+                <a href="#">For better experience,download the Food-Bowl app now</a>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+              </div>
+             
+              <div class="footer-container">
+              <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Careers</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Blog</a></li>
+                </ul>
+              </div>
+    
+              <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                  <li><a href="#">Help & Support</a></li>
+                  <li><a href="#">Partner with us</a></li>
+                  <li><a href="#">Ride with us</a></li>
+                  
+                </ul>
+              </div>
+    
+              <div class="footer-section">
+                <h4>Legal</h4>
+                <div class="legal">
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                      </ul>
+                </div>
+              </div>
+              <div class="footer-section">
+                <h4>Available in</h4>
+                <ul>
+                  <li><a href="#">Pune</a></li>
+                  <li><a href="#">Mumbai</a></li>
+                  <li><a href="#">Hydrabad</a></li>
+                  <li><a href="#">Delhi</a></li>
+                </ul>
+              </div>
+    
+              <div class="footer-section">
+                <h4>Life at food-bowl</h4>
+                <ul>
+                  <li><a href="#">Explore With Food-Bowl</a></li>
+                  <li><a href="#">Food-Bowl News</a></li>
+                  <li><a href="#">Snackables</a></li>
+                </ul>
+              </div>
+              
+              <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+    
+            <div class="footer-section1">
+                <p>Restraunt &copy; all rights reserved</p>
+            <p>Contact us : foodbowl111@gmail.com</p>
+            <p>Phone no.:9975775550/9172152840</p>
+            <p >Powered By@ <a href="https://www.cybromatechtechnology.in/" class="a1">Cybromatech Technology Pvt.Ltd.2024</a></p>
+            </div>
+        
+          </footer>
+    <script src="nonveg.js"></script>
+    </main>
+
+</body>
+</html>

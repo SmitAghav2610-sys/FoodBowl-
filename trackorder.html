@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order</title>
+    <link rel="stylesheet" href="track order.css">
+    <style>
+        .navbar input[type="checkbox"],
+        .navbar .hamburger-lines {
+            display: none;
+        }
+
+        .navbar {
+            box-shadow: 0px 5px 10px 0px #aaa;
+            width: 100%;
+            background: black;
+            color: white;
+            opacity: 0.85;
+            height: 80px;
+            z-index: 3;
+            padding: 10px;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            height: 64px;
+            align-items: center;
+        }
+
+        .menu-items {
+            order: 2;
+            display: flex;
+            position: absolute;
+            right: 10px;
+            padding: 10px;
+        }
+
+        .menu-items li {
+            list-style: none;
+            margin-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .menu-items a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+            right: 0;
+        }
+
+        .cart {
+            color: blue;
+        }
+
+        .menu-items a:hover {
+            color: #117964;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .logo {
+            order: 1;
+            font-size: 2.3rem;
+            margin-top: -1rem;
+            position: absolute;
+            margin-left: 10px;
+            left: 0;
+            filter: drop-shadow(10px 10px 10px 0.8rem rgb(214, 5, 5));
+        }
+
+        /* Map container */
+        #map {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .order-input {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .order-input input {
+            width: 200px;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .order-input button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .order-input button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background-color: #f44336; /* Red color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Order status section */
+        .order-status {
+            display: flex;
+            /* flex-direction: column; */
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .status-step .circle {
+            width: 30px;
+            height: 30px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+
+        .status-step.active .circle {
+            background-color: #28a745;
+        }
+
+        .status-step .label {
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e0e0e0;
+            margin: 5px 0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 100%;
+            background-color: #28a745;
+        }
+
+        .order-details {
+            margin: 20px;
+            font-size: 18px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #323232;
+            color: #fff;
+            padding: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .footer-bottom a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 500;
+            font-family: bold;
+            margin-right: 10px;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom img {
+            margin-top: 10px;
+            width: 150px;
+            height: auto;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1 1 calc(25% - 20px);
+            margin: 10px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0c14b;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            font-size: 10px;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-section ul li a:hover {
+            color: #b1342d;
+            text-decoration: underline;
+        }
+
+        /* Media Queries for mobile responsiveness */
+        @media (max-width: 768px) {
+            .order-input {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .order-input input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .order-input button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .back-btn {
+                width: 100%;
+            }
+
+            .status-step {
+                flex-direction: column;
+                align-items: center;
+                margin: 15px 0;
+            }
+
+            .status-step .circle {
+                margin-bottom: 10px;
+            }
+
+            .order-details {
+                text-align: center;
+            }
+
+            /* Map responsiveness */
+            #map {
+                height: 250px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+
+            .footer-bottom a {
+                font-size: 24px;
+            }
+
+            .footer-section ul li a {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-items {
+                position: relative;
+                right: 0;
+                margin-top: 10px;
+            }
+
+            .menu-items li {
+                font-size: 1rem;
+            }
+
+            .order-details p {
+                font-size: 16px;
+            }
+
+            .footer-bottom a {
+                font-size: 20px;
+            }
+
+            .footer-section ul li a {
+                font-size: 10px;
+            }
+            .order-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Track Your Order</h1>
+        </div>
+
+        <!-- Input to enter Order ID -->
+        <div class="order-input">
+            <input type="text" id="orderIdInput" placeholder="Enter your Order ID">
+            <button onclick="trackOrder()">Track Order</button>
+            <!-- Back button to mycart.html -->
+            <button class="back-btn" onclick="window.location.href='mycart.html'">Back</button>
+        </div>
+
+        <!-- Order status -->
+        <div class="order-status">
+            <div class="status-step active">
+                <div class="circle">1</div>
+                <div class="label">Order Placed</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="status-step active">
+                <div class="circle">2</div>
+                <div class="label">Preparing</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="status-step">
+                <div class="circle">3</div>
+                <div class="label">On the Way</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="status-step">
+                <div class="circle">4</div>
+                <div class="label">Delivered</div>
+            </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <p><strong>Order ID:</strong> <span id="orderIdDisplay">N/A</span></p>
+            <p><strong>Restaurant:</strong> Food Bowl</p>
+            <p><strong>Delivery Time:</strong> 30 minutes</p>
+        </div>
+
+        <!-- Map to show order location -->
+        <div id="map"></div>
+    </div>
+
+    <!-- Add Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([0, 0], 13); // Default center
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker;
+
+        function trackOrder() {
+            const orderId = document.getElementById('orderIdInput').value;
+            if (!orderId) {
+                alert("Please enter a valid Order ID.");
+                return;
+            }
+
+            document.getElementById('orderIdDisplay').textContent = orderId;
+            fetchOrderLocation(orderId);
+        }
+
+        function fetchOrderLocation(orderId) {
+            const mockResponse = {
+                "456": { lat: 40.7128, lon: -74.0060 }, // New York
+                "123": { lat: 18.5204, lon: 73.8567 }, // Pune
+            };
+
+            const location = mockResponse[orderId];
+            if (!location) {
+                alert("Order not found. Please check your Order ID.");
+                return;
+            }
+
+            const { lat, lon } = location;
+            map.setView([lat, lon], 13);
+
+            if (marker) {
+                marker.setLatLng([lat, lon]);
+            } else {
+                marker = L.marker([lat, lon]).addTo(map);
+            }
+
+            marker.bindPopup(`<b>Order Location</b><br>Lat: ${lat}, Lon: ${lon}`).openPopup();
+        }
+    </script>
+</body>
+</html>

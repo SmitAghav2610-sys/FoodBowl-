@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 250px;
+            background: #343a40;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            padding: 20px;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .sidebar a:hover {
+            background: #495057;
+        }
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="#orders"><i class="fas fa-receipt"></i> Manage Orders</a>
+        <a href="#products"><i class="fas fa-box"></i> Manage Products</a>
+        <a href="#payments"><i class="fas fa-credit-card"></i> Manage Payments</a>
+        <a href="#reports"><i class="fas fa-chart-line"></i> Reports</a>
+        <a href="#settings"><i class="fas fa-cogs"></i> Settings</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome, Admin</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Orders</h5>
+                        <p class="card-text" id="total-orders">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Revenue</h5>
+                        <p class="card-text" id="total-revenue">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-danger">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Orders</h5>
+                        <p class="card-text" id="pending-orders">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="orders">
+            <h2>Manage Orders</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="products">
+            <h2>Manage Products</h2>
+            <button class="btn btn-primary mb-3">Add Product</button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="products-table">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="payments">
+            <h2>Manage Payments</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Order ID</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="payments-table">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+       
+    document.addEventListener('DOMContentLoaded', () => {
+        // Simulated data for the dashboard
+        const dummyData = {
+            totalOrders: 125,
+            totalRevenue: 678945, // Revenue in INR
+            pendingOrders: 15,
+            orders: [
+                { id: 'ORD001', customer: 'Rahul Sharma', items: 'Pizza, Coke', status: 'Delivered' },
+                { id: 'ORD002', customer: 'Priya Singh', items: 'Burger, Fries', status: 'Pending' },
+                { id: 'ORD003', customer: 'Anil Kapoor', items: 'Pasta', status: 'In Progress' },
+            ],
+            products: [
+                { id: 'PROD001', name: 'Margherita Pizza', price: 899, stock: 25 }, // Prices in INR
+                { id: 'PROD002', name: 'Cheese Burger', price: 549, stock: 30 },
+                { id: 'PROD003', name: 'Cold Drink', price: 199, stock: 50 },
+            ],
+            payments: [
+                { id: 'PAY001', orderId: 'ORD001', amount: 1098, status: 'Completed', date: '2025-01-09' }, // Amounts in INR
+                { id: 'PAY002', orderId: 'ORD002', amount: 1248, status: 'Pending', date: '2025-01-10' },
+                { id: 'PAY003', orderId: 'ORD003', amount: 899, status: 'Completed', date: '2025-01-10' },
+            ],
+        };
+
+        // Function to format currency to INR
+        const formatToINR = (amount) => {
+            return `₹${amount.toLocaleString('en-IN')}`;
+        };
+
+        // Populate dashboard stats
+        document.getElementById('total-orders').textContent = dummyData.totalOrders;
+        document.getElementById('total-revenue').textContent = formatToINR(dummyData.totalRevenue);
+        document.getElementById('pending-orders').textContent = dummyData.pendingOrders;
+
+        // Populate orders table
+        const ordersTable = document.getElementById('orders-table');
+        dummyData.orders.forEach(order => {
+            const row = `<tr>
+                <td>${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.items}</td>
+                <td>${order.status}</td>
+                <td><button class="btn btn-sm btn-warning">Edit</button></td>
+            </tr>`;
+            ordersTable.innerHTML += row;
+        });
+
+        // Populate products table
+        const productsTable = document.getElementById('products-table');
+        dummyData.products.forEach(product => {
+            const row = `<tr>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${formatToINR(product.price)}</td>
+                <td>${product.stock}</td>
+                <td><button class="btn btn-sm btn-warning">Edit</button></td>
+            </tr>`;
+            productsTable.innerHTML += row;
+        });
+
+        // Populate payments table
+        const paymentsTable = document.getElementById('payments-table');
+        dummyData.payments.forEach(payment => {
+            const row = `<tr>
+                <td>${payment.id}</td>
+                <td>${payment.orderId}</td>
+                <td>${formatToINR(payment.amount)}</td>
+                <td>${payment.status}</td>
+                <td>${payment.date}</td>
+            </tr>`;
+            paymentsTable.innerHTML += row;
+        });
+    });
+
+
+    </script>
+</body>
+</html>
